@@ -8,7 +8,7 @@ public class UpdateMySQL2 {
         Scanner scnResp = new Scanner(System.in);
         Scanner scnCadastroUpdate = new Scanner(System.in);
         String strLogin, strSenha, status = "Nada aconteceu ainda...";
-        int resp;
+        String resp;
         boolean update = false, validLogin = false;
         String novoNome = "", novaSenha = "";
 
@@ -36,33 +36,42 @@ public class UpdateMySQL2 {
                         System.out.println("\nBem vindo " + login);
                         validLogin = true;
                         update = false;
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                         while (update == false) {
+                            Thread.sleep(1000);
                             System.out.println("\n--- Update de cadastro ---");
-                            System.out.println("Digite [1] para alterar o nome.\nDigite [2] para alterar a senha.\nDigite [3] para sair.");
-                            resp = scnResp.nextInt();
+                            Thread.sleep(1000);
+                            System.out.println("\nDigite [1] para alterar o nome.\nDigite [2] para alterar a senha.\nDigite [3] para sair.");
+                            resp = scnResp.nextLine();
                             switch (resp) {
-                                case 1:
+                                case "1":
+                                    Thread.sleep(1000);
                                     System.out.println("Digite o novo nome:");
                                     novoNome = scnCadastroUpdate.nextLine();
                                     String stmSqlUpdate = "UPDATE `mysql_connector`.`tbl_login` SET `nome` = '" + novoNome + "' WHERE (`login` = '" + strLogin + "')";
                                     PreparedStatement preparedStm = conn.prepareStatement(stmSqlUpdate);
                                     preparedStm.executeUpdate();
+                                    Thread.sleep(1000);
                                     System.out.println("\nNome alterado com sucesso para " + "[" + novoNome + "]");
                                 break;
-                                case 2:
+                                case "2":
+                                    Thread.sleep(1000);
                                     System.out.println("Digite a senha atual:");
                                     String senhaAtual = scnCadastroUpdate.nextLine();
                                         if (strSenha.equals(senhaAtual) || novaSenha.equals(senhaAtual)) {
+                                            Thread.sleep(1000);
                                             System.out.println("Digite a nova senha: ");
                                             novaSenha = scnCadastroUpdate.nextLine();
+                                            Thread.sleep(1000);
                                             System.out.println("Confirme a nova senha:");
                                             String novaSenhaConf = scnCadastroUpdate.nextLine();
                                                 if (novaSenha.equals(novaSenhaConf)) {
                                                     String stmSqlUpdate2 = "UPDATE `mysql_connector`.`tbl_login` SET `senha` = '" + novaSenha + "' WHERE (`login` = '" + strLogin + "')";
                                                     PreparedStatement preparedStm2 = conn.prepareStatement(stmSqlUpdate2);
                                                     preparedStm2.executeUpdate();
-                                                    System.out.println("\nSenha alterada com sucesso para " + "[" + novaSenha + "]"); 
+                                                    Thread.sleep(1000);
+                                                    System.out.println("\nSenha alterada com sucesso para " + "[" + novaSenha + "]");
+                                                    Thread.sleep(1000);
                                                     System.out.println("Deseja voltar à pagina inicial ou continuar? ['c' para continuar ou 's' para ir à pagina inicial]");
                                                     String resp2 = scnCadastroUpdate.nextLine();
                                                         if (resp2.equals("s") || resp2.equals("S")) {
@@ -70,20 +79,26 @@ public class UpdateMySQL2 {
                                                             update = true;
                                                         } 
                                                 } else {
+                                                    Thread.sleep(1000);
                                                     System.out.println("Confirmação de senha errado. Tente novamente.");
+                                                    Thread.sleep(1000);
                                             }
                                         } else {
+                                            Thread.sleep(1000);
                                             System.out.println("Senha atual errada. Tente novamente.");
+                                            Thread.sleep(1000);
                                         }
                                 break;
-                                case 3:
+                                case "3":
                                     status = "\nVolte Novamente! " + login;
                                     update = true;
+                                    Thread.sleep(1000);
                                 break;
                                 default:
                                     System.out.println("Nenhuma opção escolhida...");
-                                    Thread.sleep(2000);
+                                    Thread.sleep(1000);
                                     System.out.println("Voltando ao Menu!");
+                                    Thread.sleep(1000);
                                 break;
                             }
                         }
